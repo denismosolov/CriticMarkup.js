@@ -1,6 +1,6 @@
 var CriticMarkup = require('criticmarkup');
 
-casper.test.begin('Critic Markup', 4, function suite(test) {
+casper.test.begin('Critic Markup', 5, function suite(test) {
 	
 	var basicAddHTML = CriticMarkup.toHTML('Lorem ipsum dolor{++ sit++} amet…');
 	test.assertEquals(basicAddHTML, 'Lorem ipsum dolor<ins> sit</ins> amet…');
@@ -19,6 +19,9 @@ casper.test.begin('Critic Markup', 4, function suite(test) {
 
 	// var basicComment = CriticMarkup.toHTML('Lorem ipsum dolor sit amet.{>>This is a comment<<}');
 	// test.assertEquals(basicComment, 'Lorem ipsum dolor sit amet.<span class="critic comment">This is a comment</span>');
+
+	var basicHighlights = CriticMarkup.toHTML('Lorem ipsum dolor sit amet, consectetur adipiscing elit. {==Vestibulum at orci magna. Phasellus augue justo, sodales eu pulvinar ac, vulputate eget nulla.==}{>>confusing<<} Mauris massa sem, tempor sed cursus et, semper tincidunt lacus.');
+	test.assertEquals(basicHighlights, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. <mark>Vestibulum at orci magna. Phasellus augue justo, sodales eu pulvinar ac, vulputate eget nulla.</mark><span class="critic comment">confusing</span> Mauris massa sem, tempor sed cursus et, semper tincidunt lacus.');
 
 	// var basicAllTogether = CriticMarkup.toHTML('Don\'t go around saying{-- to people that--} the world owes you a living. The world owes you nothing. It was here first. {~~One~>Only one~~} thing is impossible for God: To find {++any++} sense in any copyright law on the planet.');
 	// test.assertEquals(basicAllTogether, 'Don\'t go around saying<del> to people that</del> the world owes you a living. The world owes you nothing. It was here first. <del>One</del><ins>Only one</ins> thing is impossible for God: To find <ins>any</ins> sense in any copyright law on the planet.');
