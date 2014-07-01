@@ -25,6 +25,10 @@ var CriticMarkup = {
 				return '<mark>' + mark + '</mark><span class="critic comment">' + comment.replace(/(\r\n|\n|\r)/, ' ') + '</span>';
 			}).replace(/\{\>\>([\s\S]*?)\<\<\}/gm, function(match, comment){
 				return '<span class="critic comment">' + comment.replace(/^(\r\n|\n|\r)/, ' ') + '</span>';
+			}).replace(/\{\~\~([\s\S](?:[^\~\>]|(?:\~(?!\>)))+)\~\>([\s\S](?:[^\~\~]|(?:\~(?!\~\})))+)\~\~\}/gm, function(match, original, modified){
+				var delString = '<del>' + original + '</del>';
+				var insString  = '<ins>' + modified + '</ins>'
+				return delString + insString;
 			});
 	}
 };
