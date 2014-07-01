@@ -1,20 +1,27 @@
 var CriticMarkup = {
 	toHTML: function(markup) {
-		return markup.replace(/\{~~/g, '<del>')
-		.replace(/~>/g, '</del><ins>')
-		.replace(/~~}/g, '</ins>')
-		.replace(/\{\-\-([\s\S]*?)\-\-[ \t]*(\[([\s\S]*?)\])?[ \t]*\}/gm, function(match, contents){
-			if (contents.match(/(\r\n|\n|\r)/gm)) {
-				return '<del>&nbsp;</del>';
-			} else {
-				return '<del>' + contents.replace(/(\r\n|\n|\r)/gm, "&nbsp;") + '</del>';
-			}
-		})
-		.replace(/\{\+\+/g, '<ins>')
-		.replace(/\{\+\+/g, '<ins>')
-		.replace(/\+\+\}/g, '</ins>')
-		.replace(/\{>>/g, '<span class="critic comment">')
-		.replace(/<<\}/g, '</span>');
+		return markup.replace(/\{\-\-([\s\S]*?)\-\-[ \t]*(\[([\s\S]*?)\])?[ \t]*\}/gm, function(match, contents){
+				var replaceString = '';
+				if (contents.match(/(\r\n|\n|\r)/gm)) {
+					replaceString = '<del>&nbsp;</del>';
+				} else {
+					replaceString = '<del>' + contents.replace(/(\r\n|\n|\r)/gm, '&nbsp;') + '</del>';
+				}
+				return replaceString;
+			}).replace(/\{\+\+([\s\S]*?)\+\+[ \t]*(\[([\s\S]*?)\])?[ \t]*\}/gm, function(match, contents){
+				var replaceString = '';
+				if (contents.match(/^(\r\n|\n|\r)/) && !contents.match(/^(\r\n|\n|\r)$/)) {
+					replaceString = '\n\n<ins>&nbsp;</ins>\n\n';
+					// ???
+					replaceString = replaceString + '<ins>' + contents.replace(/(\r\n|\n|\r)/, ' ');
+					replaceString = replaceString + '</ins>';
+				} else if (contents.match(/^(\r\n|\n|\r)$/)) {
+					replaceString = replaceString + '\n\n<ins>&nbsp;</ins>\n\n';
+				} else {
+					replaceString = '<ins>' + contents.replace(/^(\r\n|\n|\r)/, ' ') + '</ins>';
+				}
+				return replaceString;
+			});
 	}
 };
 
