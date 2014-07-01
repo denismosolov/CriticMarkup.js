@@ -1,6 +1,6 @@
 var CriticMarkup = require('criticmarkup');
 
-casper.test.begin('Critic Markup', 5, function suite(test) {
+casper.test.begin('Critic Markup', 6, function suite(test) {
 	
 	var basicAddHTML = CriticMarkup.toHTML('Lorem ipsum dolor{++ sit++} amet…');
 	test.assertEquals(basicAddHTML, 'Lorem ipsum dolor<ins> sit</ins> amet…');
@@ -17,8 +17,8 @@ casper.test.begin('Critic Markup', 5, function suite(test) {
 	// var basicSubst = CriticMarkup.toHTML('Lorem {~~hipsum~>ipsum~~} dolor sit amet…');
 	// test.assertEquals(basicSubst, 'Lorem <del>hipsum</del><ins>ipsum</ins> dolor sit amet…');
 
-	// var basicComment = CriticMarkup.toHTML('Lorem ipsum dolor sit amet.{>>This is a comment<<}');
-	// test.assertEquals(basicComment, 'Lorem ipsum dolor sit amet.<span class="critic comment">This is a comment</span>');
+	var basicComment = CriticMarkup.toHTML('Lorem ipsum dolor sit amet.{>>This is a comment<<}');
+	test.assertEquals(basicComment, 'Lorem ipsum dolor sit amet.<span class="critic comment">This is a comment</span>');
 
 	var basicHighlights = CriticMarkup.toHTML('Lorem ipsum dolor sit amet, consectetur adipiscing elit. {==Vestibulum at orci magna. Phasellus augue justo, sodales eu pulvinar ac, vulputate eget nulla.==}{>>confusing<<} Mauris massa sem, tempor sed cursus et, semper tincidunt lacus.');
 	test.assertEquals(basicHighlights, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. <mark>Vestibulum at orci magna. Phasellus augue justo, sodales eu pulvinar ac, vulputate eget nulla.</mark><span class="critic comment">confusing</span> Mauris massa sem, tempor sed cursus et, semper tincidunt lacus.');

@@ -23,6 +23,8 @@ var CriticMarkup = {
 				return replaceString;
 			}).replace(/\{\=\=([\s\S]*?)\=\=\}\{\>\>([\s\S]*?)\<\<\}/gm, function(match, mark, comment) {
 				return '<mark>' + mark + '</mark><span class="critic comment">' + comment.replace(/(\r\n|\n|\r)/, ' ') + '</span>';
+			}).replace(/\{\>\>([\s\S]*?)\<\<\}/gm, function(match, comment){
+				return '<span class="critic comment">' + comment.replace(/^(\r\n|\n|\r)/, ' ') + '</span>';
 			});
 	}
 };
