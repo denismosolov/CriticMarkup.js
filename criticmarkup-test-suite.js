@@ -1,6 +1,6 @@
 var CriticMarkup = require('criticmarkup');
 
-casper.test.begin('Critic Markup', 8, function suite(test) {
+casper.test.begin('Critic Markup', 9, function suite(test) {
 	
 	var basicAddHTML = CriticMarkup.toHTML('Lorem ipsum dolor{++ sit++} amet…');
 	test.assertEquals(basicAddHTML, 'Lorem ipsum dolor<ins> sit</ins> amet…');
@@ -16,6 +16,9 @@ casper.test.begin('Critic Markup', 8, function suite(test) {
 
 	var basicSubst = CriticMarkup.toHTML('Lorem {~~hipsum~>ipsum~~} dolor sit amet…');
 	test.assertEquals(basicSubst, 'Lorem <del>hipsum</del><ins>ipsum</ins> dolor sit amet…');
+
+	var japaneseSubst = CriticMarkup.toHTML('運よく、降りた後{~~で~>に~~}、手紙お渡して、入');
+	test.assertEquals(japaneseSubst, '運よく、降りた後<del>で</del><ins>に</ins>、手紙お渡して、入');
 
 	var basicComment = CriticMarkup.toHTML('Lorem ipsum dolor sit amet.{>>This is a comment<<}');
 	test.assertEquals(basicComment, 'Lorem ipsum dolor sit amet.<span class="critic comment">This is a comment</span>');
