@@ -1,7 +1,6 @@
 var CriticMarkup = require('criticmarkup');
 
 casper.test.begin('Critic Markup', 9, function suite(test) {
-	
 	var basicAddHTML = CriticMarkup.toHTML('Lorem ipsum dolor{++ sit++} amet…');
 	test.assertEquals(basicAddHTML, 'Lorem ipsum dolor<ins> sit</ins> amet…');
 
@@ -12,7 +11,7 @@ casper.test.begin('Critic Markup', 9, function suite(test) {
 	test.assertEquals(basicDelHTML, 'Lorem<del> ipsum</del> dolor sit amet…');
 
 	var newlineDelHTML = CriticMarkup.toHTML('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum at orci magna. Phasellus augue justo, sodales eu pulvinar ac, vulputate eget nulla. Mauris massa sem, tempor sed cursus et, semper tincidunt lacus.{--\n--} Praesent sagittis, quam id egestas consequat, nisl orci vehicula libero, quis ultricies nulla magna interdum sem. Maecenas eget orci vitae eros accumsan mollis. Cras mi mi, rutrum id aliquam in, aliquet vitae tellus. Sed neque justo, cursus in commodo eget, facilisis eget nunc. Cras tincidunt auctor varius.');
-	test.assertEquals(newlineDelHTML, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum at orci magna. Phasellus augue justo, sodales eu pulvinar ac, vulputate eget nulla. Mauris massa sem, tempor sed cursus et, semper tincidunt lacus.<del>&nbsp;</del> Praesent sagittis, quam id egestas consequat, nisl orci vehicula libero, quis ultricies nulla magna interdum sem. Maecenas eget orci vitae eros accumsan mollis. Cras mi mi, rutrum id aliquam in, aliquet vitae tellus. Sed neque justo, cursus in commodo eget, facilisis eget nunc. Cras tincidunt auctor varius.');
+	test.assertEquals(newlineDelHTML, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum at orci magna. Phasellus augue justo, sodales eu pulvinar ac, vulputate eget nulla. Mauris massa sem, tempor sed cursus et, semper tincidunt lacus.\n\n<del>&nbsp;</del>\n\n Praesent sagittis, quam id egestas consequat, nisl orci vehicula libero, quis ultricies nulla magna interdum sem. Maecenas eget orci vitae eros accumsan mollis. Cras mi mi, rutrum id aliquam in, aliquet vitae tellus. Sed neque justo, cursus in commodo eget, facilisis eget nunc. Cras tincidunt auctor varius.');
 
 	var basicSubst = CriticMarkup.toHTML('Lorem {~~hipsum~>ipsum~~} dolor sit amet…');
 	test.assertEquals(basicSubst, 'Lorem <del>hipsum</del><ins>ipsum</ins> dolor sit amet…');

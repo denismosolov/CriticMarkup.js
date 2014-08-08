@@ -2,10 +2,15 @@ var CriticMarkup = {
 	toHTML: function(markup) {
 		return markup.replace(/\{\-\-([\s\S]*?)\-\-[ \t]*(\[([\s\S]*?)\])?[ \t]*\}/gm, function(match, contents){
 				var replaceString = '';
-				if (contents.match(/(\r\n|\n|\r)/gm)) {
-					replaceString = '<del>&nbsp;</del>';
+				if (contents.match(/^(\r\n|\n|\r)/) && !contents.match(/^(\r\n|\n|\r)$/)) {
+					replaceString = '\n\n<del>&nbsp;</del>\n\n';
+					// ???
+					replaceString = replaceString + '<del>' + contents.replace(/(\r\n|\n|\r)/, ' ');
+					replaceString = replaceString + '</del>';
+				} else if (contents.match(/^(\r\n|\n|\r)$/)) {
+					replaceString = replaceString + '\n\n<del>&nbsp;</del>\n\n';
 				} else {
-					replaceString = '<del>' + contents.replace(/(\r\n|\n|\r)/gm, '&nbsp;') + '</del>';
+					replaceString = '<del>' + contents.replace(/^(\r\n|\n|\r)/, ' ') + '</del>';
 				}
 				return replaceString;
 			}).replace(/\{\+\+([\s\S]*?)\+\+[ \t]*(\[([\s\S]*?)\])?[ \t]*\}/gm, function(match, contents){
