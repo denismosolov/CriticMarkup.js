@@ -1,19 +1,19 @@
-###CriticMarkup.js
+# CriticMarkup.js
 
 CriticMarkup.js converts  [CriticMarkup](http://criticmarkup.com/) to HTML. CriticMarkup.js is written in javascript and it's supposed to be used in the browser. `CriticMarkup` contains only one method `toHTML` which takes a CriticMarkup string and returns a HTML string.
 
-####Usage example:
+## Usage example:
 
     <script type="text/javascript" src="criticmarkup.js"></script>
     ...
     var html = CriticMarkup.toHTML("Lorem{‐‐ ipsum‐‐} dolor sit amet");
 
-####Test
+## Test
 
 You can find basic tests in the `tests/critic-markup-test-suite.js`. This test suite can be executed via [CasperJS](http://casperjs.readthedocs.org/en/latest/testing.html#unit-testing).
 ```$ casperjs test criticmarkup-test-suite.js```
 
-####Notes
+## Notes
 
 At this moment CriticMarkup.js don't convert [Highlights](http://criticmarkup.com/spec.php#highlights) and ignore paragraphs. Pull requests are welcomed!
 
